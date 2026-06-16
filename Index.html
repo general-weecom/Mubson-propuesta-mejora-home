@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propuesta de Home · Mubson — Weecom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Mubson brand (real) */
+  --mb-green:#0F5C44; --mb-green-dk:#0A4836; --mb-acc:#18795A;
+  --mb-cream:#F6F0E4; --mb-paper:#ffffff; --mb-ink:#1A2620; --mb-muted:#6B7770;
+  --mb-line:#E8E3D6; --mb-red:#B23127; --mb-coral:#EE6079; --mb-orange:#EE8B39; --mb-star:#E2A52E;
+  /* Weecom canvas */
+  --ink:#0f1221; --ink2:#171b2b; --teal:#3fa593; --ivory:#d3d2cc;
+  --display:'Fraunces',serif; --body:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--body);background:
+  radial-gradient(1200px 600px at 80% -10%, #1a2036 0%, transparent 60%),
+  var(--ink);color:var(--ivory);-webkit-font-smoothing:antialiased}
+
+/* ---------- Weecom shell ---------- */
+.shell{max-width:1180px;margin:0 auto;padding:26px 22px 60px}
+.wbar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:6px}
+.brand{display:flex;align-items:center;gap:14px}
+.wlogo{font-weight:800;letter-spacing:.5px;color:#fff;font-size:18px}
+.wlogo b{color:var(--teal)}
+.wtitle{font-size:13px;color:#9a9ca6;border-left:1px solid #2a2f45;padding-left:14px}
+.wtitle strong{color:#fff;font-weight:600}
+.controls{display:flex;gap:10px;align-items:center}
+.toggle{appearance:none;border:1px solid #2a2f45;background:#161a29;color:var(--ivory);
+  font-family:var(--body);font-size:13px;font-weight:600;padding:9px 15px;border-radius:999px;cursor:pointer;
+  display:inline-flex;align-items:center;gap:8px;transition:.18s}
+.toggle:hover{border-color:var(--teal)}
+.toggle.on{background:var(--teal);color:#06231e;border-color:var(--teal)}
+.toggle .dot{width:8px;height:8px;border-radius:50%;background:var(--teal)}
+.toggle.on .dot{background:#06231e}
+.sub{font-size:12.5px;color:#7d8090;margin:10px 2px 22px;max-width:760px;line-height:1.55}
+
+.stage{display:grid;grid-template-columns:392px 1fr;gap:34px;align-items:start}
+@media(max-width:880px){.stage{grid-template-columns:1fr;gap:26px}}
+
+/* ---------- Phone frame ---------- */
+.phone-wrap{display:flex;justify-content:center}
+.phone{width:392px;max-width:100%;background:#000;border-radius:42px;padding:11px;
+  box-shadow:0 30px 80px rgba(0,0,0,.6), 0 0 0 1px #26262b;position:sticky;top:24px}
+.notch{height:26px;display:flex;align-items:center;justify-content:center;position:relative}
+.notch::before{content:"";width:120px;height:20px;background:#000;border-radius:0 0 16px 16px;
+  position:absolute;top:-11px;border:1px solid #1c1c20;border-top:none}
+.screen{height:760px;overflow-y:auto;overflow-x:hidden;border-radius:32px;background:var(--mb-paper);
+  position:relative;scrollbar-width:thin;scrollbar-color:#cfc9ba transparent}
+.screen::-webkit-scrollbar{width:6px}.screen::-webkit-scrollbar-thumb{background:#cfc9ba;border-radius:8px}
+
+/* ---------- Mubson UI ---------- */
+.mb{color:var(--mb-ink);font-size:14px;position:relative}
+.anno{position:absolute;z-index:40;width:25px;height:25px;border-radius:50%;background:var(--teal);
+  color:#06231e;font-weight:800;font-size:13px;display:none;align-items:center;justify-content:center;
+  box-shadow:0 0 0 4px rgba(63,165,147,.30), 0 4px 12px rgba(0,0,0,.35);font-family:var(--body)}
+.show-anno .anno{display:flex}
+
+/* announcement (one clean message) */
+.promo{background:var(--mb-red);color:#fff;font-size:11px;font-weight:600;text-align:center;
+  padding:8px 30px;letter-spacing:.2px;position:relative;display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap}
+.promo .star{color:#ffd66e}
+
+/* header */
+.shead{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;background:var(--mb-green);position:sticky;top:0;z-index:30}
+.icn{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:1.7}
+.wm{font-size:17px;font-weight:800;letter-spacing:3px;color:#fff;font-family:var(--body)}
+.hrow{display:flex;gap:15px;align-items:center}
+
+/* hero */
+.hero{position:relative;padding:20px 18px 24px;background:linear-gradient(165deg,#EDE7D8 0%, #F6F0E4 60%, #fff 100%);border-bottom:1px solid var(--mb-line)}
+.hero .rate{font-size:11px;color:#5c6760;display:flex;gap:7px;align-items:center;margin-bottom:12px;font-weight:600}
+.stars{color:var(--mb-star);letter-spacing:1px}
+.hero-art{width:100%;height:172px;border-radius:16px;margin-bottom:14px;
+  background:radial-gradient(120px 120px at 32% 50%, #cfc6b1, transparent 70%), linear-gradient(150deg,#1d6650,#0f5c44 60%);
+  display:flex;align-items:center;justify-content:center;color:#dce9e2;font-size:12px;position:relative;overflow:hidden}
+.hero-art .obj{width:58%;height:74%;border-radius:14px;background:linear-gradient(160deg,#3a342c,#1c1813);
+  border:1px solid #4a4136;display:flex;align-items:center;justify-content:center;text-align:center;color:#cdbfa6;font-size:11px;padding:8px;line-height:1.25}
+.hero h1{font-family:var(--display);font-weight:600;font-size:25px;line-height:1.07;letter-spacing:-.2px;color:var(--mb-ink)}
+.coupon{display:inline-flex;align-items:center;gap:8px;margin-top:12px;background:#fff;border:1.5px dashed var(--mb-coral);
+  color:var(--mb-ink);font-size:12px;font-weight:700;padding:8px 12px;border-radius:10px}
+.coupon b{color:var(--mb-coral);letter-spacing:.5px}
+.cta-row{display:flex;flex-direction:column;gap:9px;margin-top:16px}
+.btn{font-family:var(--body);border:none;cursor:pointer;font-weight:700;font-size:14.5px;border-radius:12px;
+  padding:14px 18px;text-align:center;letter-spacing:.2px}
+.btn-primary{background:var(--mb-green);color:#fff;box-shadow:0 8px 22px rgba(15,92,68,.30)}
+.btn-ghost{background:transparent;color:var(--mb-green);border:1.5px solid #bcd2c8;font-weight:600;font-size:13.5px;padding:12px 18px}
+
+/* section base */
+.sec{padding:24px 16px 6px;position:relative}
+.sec.cream{background:var(--mb-cream)}
+.sec-h{font-family:var(--display);font-weight:600;font-size:20px;letter-spacing:-.2px;color:var(--mb-ink);margin-bottom:14px}
+.sec-h .small{display:block;font-family:var(--body);font-size:11px;font-weight:600;color:var(--mb-muted);letter-spacing:.3px;margin-top:3px}
+
+/* empieza aqui */
+.start-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.tile{position:relative;border-radius:16px;padding:15px 14px;min-height:90px;display:flex;flex-direction:column;justify-content:space-between;
+  border:1px solid var(--mb-line);overflow:hidden;background:#fff}
+.tile .lab{font-weight:700;font-size:14px;line-height:1.15;z-index:2;color:var(--mb-ink)}
+.tile .go{font-size:11px;color:var(--mb-muted);z-index:2}
+.tile.green{background:linear-gradient(140deg,#13694f,#0f5c44);border-color:#0c4d39}
+.tile.green .lab{color:#fff}.tile.green .go{color:#bfe0d2}
+.tile .pill{font-size:10px;font-weight:800;color:#fff;background:var(--mb-orange);
+  display:inline-block;padding:2px 7px;border-radius:6px;align-self:flex-start;margin-bottom:6px;z-index:2}
+
+/* trust strip */
+.trust{display:flex;justify-content:space-between;gap:6px;padding:14px 16px;margin:18px 0 2px;background:#fff;
+  border-top:1px solid var(--mb-line);border-bottom:1px solid var(--mb-line);position:relative}
+.trust div{flex:1;text-align:center;font-size:10px;color:#566;line-height:1.3}
+.trust .t-ic{font-size:15px;display:block;margin-bottom:4px}
+
+/* featured bundle */
+.feat{margin:24px 16px 6px;border-radius:20px;padding:20px 18px;position:relative;overflow:hidden;
+  background:linear-gradient(160deg,#13694f,#0c4a38);border:1px solid #0c4d39;color:#fff}
+.feat .eyebrow{font-size:10px;font-weight:800;letter-spacing:1.6px;color:#9fe0cc;text-transform:uppercase}
+.feat h3{font-family:var(--display);font-weight:600;font-size:21px;line-height:1.05;margin:8px 0 6px;color:#fff}
+.feat .desc{font-size:12px;color:#cfe6dd;line-height:1.45;max-width:230px}
+.feat .items{font-size:11px;color:#bfe0d2;margin-top:10px;line-height:1.5}
+.feat .price{display:flex;align-items:baseline;gap:8px;margin-top:14px;max-width:225px;flex-wrap:wrap;row-gap:6px}
+.feat .price .now{font-family:var(--display);font-size:25px;color:#fff;font-weight:600}
+.feat .price .was{font-size:13px;color:#8fb9aa;text-decoration:line-through}
+.feat .save{font-size:11px;font-weight:800;color:#0c4a38;background:#ffd66e;padding:2px 8px;border-radius:6px}
+.feat .btn{margin-top:14px;width:64%;padding:11px;background:#fff;color:var(--mb-green)}
+.feat .art{position:absolute;right:-14px;bottom:-16px;width:100px;height:132px;border-radius:14px;
+  background:linear-gradient(180deg,#2a2620,#15120e);border:1px solid #3a342b;display:flex;align-items:center;justify-content:center;
+  font-family:var(--display);font-size:12px;color:#7d7363;text-align:center;line-height:1.1;transform:rotate(4deg);padding:8px}
+
+/* product grid */
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.card{background:#fff;border:1px solid var(--mb-line);border-radius:15px;overflow:hidden;position:relative;display:flex;flex-direction:column}
+.thumb{aspect-ratio:1/1;background:radial-gradient(circle at 50% 40%, #efe9da 0%, #e3dccb 72%);
+  display:flex;align-items:center;justify-content:center;position:relative}
+.thumb .obj{width:62%;height:62%;border-radius:12px;background:linear-gradient(160deg,#cdc4ad,#b6ab90);
+  border:1px solid #c7bda3;display:flex;align-items:center;justify-content:center;text-align:center;font-size:10px;color:#5f5746;padding:6px;line-height:1.2;font-weight:600}
+.sale-tag{position:absolute;top:8px;left:8px;background:var(--mb-coral);color:#fff;font-size:9px;font-weight:800;padding:3px 7px;border-radius:6px;letter-spacing:.3px}
+.cbody{padding:11px 11px 12px;display:flex;flex-direction:column;gap:6px;flex:1}
+.cname{font-size:12.5px;font-weight:600;line-height:1.25;color:var(--mb-ink);min-height:31px}
+.crate{font-size:10px;color:var(--mb-muted);display:flex;align-items:center;gap:4px}
+.cprice{display:flex;align-items:baseline;gap:6px;margin-top:1px}
+.cprice .n{color:var(--mb-acc);font-weight:800;font-size:14px}
+.cprice .o{color:#9a958a;font-size:11px;text-decoration:line-through}
+.add{margin-top:6px;width:100%;border:none;background:var(--mb-green);color:#fff;font-family:var(--body);font-weight:700;
+  font-size:12.5px;padding:9px;border-radius:9px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
+.add:active{transform:scale(.98)}
+
+/* spaces scroller */
+.spaces{display:flex;gap:12px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:none}
+.spaces::-webkit-scrollbar{display:none}
+.space{min-width:150px;border-radius:15px;overflow:hidden;position:relative;height:108px;display:flex;align-items:flex-end;
+  padding:12px;color:#fff;border:1px solid #0c4d39;
+  background:linear-gradient(180deg,rgba(10,72,54,.15),rgba(10,72,54,.78)), linear-gradient(150deg,#1d6650,#0f5c44)}
+.space b{font-size:14px;font-weight:700;z-index:2}
+.space .go{font-size:10px;color:#cfe6dd;position:absolute;bottom:12px;right:12px}
+
+/* reviews */
+.rev-head{display:flex;align-items:center;gap:9px;justify-content:center;margin-bottom:13px}
+.rev-head .big{font-family:var(--display);font-size:22px;color:var(--mb-ink);font-weight:600}
+.rev-head .stars{font-size:14px;color:var(--mb-star)}
+.rev-head span{font-size:11px;color:var(--mb-muted)}
+.rev-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.rev{background:#fff;border:1px solid var(--mb-line);border-radius:13px;padding:12px}
+.rev .who{font-size:11.5px;font-weight:700;color:var(--mb-ink);display:flex;align-items:center;gap:5px}
+.rev .who::after{content:"✔";color:#1c9d5e;font-size:9px}
+.rev .st{color:var(--mb-star);font-size:10px;margin:3px 0 6px}
+.rev p{font-size:11px;color:#5c6760;line-height:1.4}
+.more{display:block;width:100%;margin-top:12px;background:transparent;border:1px solid #c8d6cf;color:var(--mb-green);
+  font-family:var(--body);font-weight:600;font-size:12.5px;padding:11px;border-radius:10px;cursor:pointer}
+
+/* sticky bottom cta */
+.sticky{position:sticky;bottom:0;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);
+  border-top:1px solid var(--mb-line);padding:11px 14px;display:flex;gap:10px;align-items:center;z-index:35}
+.sticky .scta{flex:1;background:var(--mb-green);color:#fff;border:none;font-family:var(--body);font-weight:700;
+  font-size:14px;padding:13px;border-radius:11px;cursor:pointer}
+.sticky .scart{width:46px;height:46px;border-radius:11px;border:1px solid var(--mb-line);background:#fff;
+  display:flex;align-items:center;justify-content:center}
+.sticky .scart .icn{stroke:var(--mb-green)}
+
+footer.foot{margin-top:14px;text-align:center;font-size:11px;color:#9a958a;padding:0 16px 18px}
+
+/* ---------- Legend ---------- */
+.legend{position:sticky;top:24px}
+.legend h4{font-size:12px;letter-spacing:1.4px;text-transform:uppercase;color:var(--teal);margin-bottom:4px}
+.legend .lead{font-size:13px;color:#9a9ca6;margin-bottom:16px;line-height:1.5}
+.chg{display:flex;gap:12px;padding:13px 0;border-top:1px solid #20243a}
+.chg:last-of-type{border-bottom:1px solid #20243a}
+.num{flex:none;width:26px;height:26px;border-radius:50%;background:var(--teal);color:#06231e;font-weight:800;font-size:13px;
+  display:flex;align-items:center;justify-content:center;margin-top:1px}
+.chg .ct b{display:block;color:#fff;font-size:13.5px;font-weight:600;margin-bottom:3px}
+.chg .ct p{font-size:12px;color:#9a9ca6;line-height:1.45}
+.hint{margin-top:18px;font-size:11.5px;color:#7d8090;background:#141828;border:1px solid #222641;border-radius:11px;padding:12px 13px;line-height:1.5}
+.hint b{color:var(--ivory)}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="wbar">
+    <div class="brand">
+      <div class="wlogo">WEE<b>COM</b></div>
+      <div class="wtitle">Propuesta de home · <strong>Mubson</strong> · vista móvil</div>
+    </div>
+    <div class="controls">
+      <button class="toggle on" id="tg"><span class="dot"></span>Ver mejoras</button>
+    </div>
+  </div>
+  <div class="sub">Mockup de alta fidelidad — el 91% del tráfico de Mubson es móvil, así que diseñamos primero para celular. Activa “Ver mejoras” para anclar cada cambio a la auditoría. Las imágenes son referenciales; el layout y la jerarquía son la propuesta.</div>
+
+  <div class="stage">
+    <!-- PHONE -->
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="mb show-anno" id="mb">
+
+            <!-- ③ announcement (one clean message) -->
+            <div class="promo">
+              <span><span class="star">★</span> 4.8 · +1,300 reseñas</span> · Envío gratis + 3 MSI desde $2,990
+              <span class="anno" style="top:50%;right:6px;transform:translateY(-50%)">3</span>
+            </div>
+
+            <!-- header -->
+            <div class="shead">
+              <svg class="icn" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+              <div class="wm">MUBSON</div>
+              <div class="hrow">
+                <svg class="icn" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+                <svg class="icn" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.3" fill="#fff"/><circle cx="18" cy="20" r="1.3" fill="#fff"/><path d="M2 3h3l2.4 12.5a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.2L22 7H6"/></svg>
+              </div>
+            </div>
+
+            <!-- ① hero with CTA + one offer -->
+            <div class="hero" id="hero">
+              <span class="anno" style="top:14px;right:14px">1</span>
+              <div class="rate"><span class="stars">★★★★★</span> 4.8 · +20,000 clientes satisfechos</div>
+              <div class="hero-art"><div class="obj">Sillón Silet · piel genuina</div></div>
+              <h1>El Sillón Silet: piel genuina y estructura de madera.</h1>
+              <div class="coupon">🎟 Cupón <b>SILET4K</b> — $4,000 OFF en el Silet</div>
+              <div class="cta-row">
+                <button class="btn btn-primary">Ver el Sillón Silet  →</button>
+                <button class="btn btn-ghost">Ver los más vendidos  →</button>
+              </div>
+            </div>
+
+            <!-- ② empieza aqui -->
+            <div class="sec" id="start">
+              <span class="anno" style="top:22px;right:14px">2</span>
+              <div class="sec-h">Empieza aquí</div>
+              <div class="start-grid">
+                <div class="tile"><div class="lab">Muebles más vendidos</div><div class="go">Lo que más eligen →</div></div>
+                <div class="tile"><div class="lab">Compra por espacio</div><div class="go">Sala · Recámara · Estudio →</div></div>
+                <div class="tile green"><span class="pill">AHORRA</span><div class="lab">Sets por espacio</div><div class="go">Arma tu espacio completo →</div></div>
+                <div class="tile"><div class="lab">Línea Premium</div><div class="go">Piezas de autor →</div></div>
+              </div>
+            </div>
+
+            <!-- ⑥ trust strip -->
+            <div class="trust">
+              <span class="anno" style="top:-11px;right:10px">6</span>
+              <div><span class="t-ic">🚚</span>Envío gratis<br>en todo</div>
+              <div><span class="t-ic">💳</span>3 MSI<br>desde $2,990</div>
+              <div><span class="t-ic">🛠️</span>Manual de<br>armado ES</div>
+              <div><span class="t-ic">★</span>+20,000<br>clientes</div>
+            </div>
+
+            <!-- ④ featured bundle (AOV) -->
+            <div class="feat" id="feat">
+              <span class="anno" style="top:14px;right:14px">4</span>
+              <div class="eyebrow">Set propuesto · sube tu AOV</div>
+              <h3>Arma tu Estudio<br>y ahorra</h3>
+              <div class="desc">Silla Astra + Librero Palermo + Credenza Kalo. El espacio completo en una sola compra.</div>
+              <div class="price"><span class="now">$12,990</span><span class="was">$13,770</span><span class="save">AHORRA $780</span></div>
+              <button class="btn">Ver el set  →</button>
+              <div class="art">SET<br>ESTUDIO</div>
+            </div>
+
+            <!-- ⑤ bestsellers grid with quick-add -->
+            <div class="sec">
+              <span class="anno" style="top:22px;right:14px">5</span>
+              <div class="sec-h">Más vendidos</div>
+              <div class="pgrid">
+                <div class="card"><div class="thumb"><span class="sale-tag">−19%</span><div class="obj">Silla Astra</div></div>
+                  <div class="cbody"><div class="cname">Silla de Escritorio Ergonómica Premium Astra</div><div class="crate"><span class="stars" style="font-size:9px">★★★★★</span> 4.9 (56)</div>
+                  <div class="cprice"><span class="n">$7,290</span><span class="o">$8,999</span></div><button class="add">＋ Agregar</button></div></div>
+                <div class="card"><div class="thumb"><span class="sale-tag">−11%</span><div class="obj">Credenza Gleza</div></div>
+                  <div class="cbody"><div class="cname">Mubson Credenza Bufetera con Puertas Gleza</div><div class="crate"><span class="stars" style="font-size:9px">★★★★★</span> 4.8 (98)</div>
+                  <div class="cprice"><span class="n">$5,490</span><span class="o">$6,149</span></div><button class="add">＋ Agregar</button></div></div>
+                <div class="card"><div class="thumb"><span class="sale-tag">−25%</span><div class="obj">Sillón Silet</div></div>
+                  <div class="cbody"><div class="cname">Sillón Reclinable Lounge con Otomana Silet</div><div class="crate"><span class="stars" style="font-size:9px">★★★★★</span> 5.0 (30)</div>
+                  <div class="cprice"><span class="n">$22,490</span><span class="o">$29,999</span></div><button class="add">＋ Agregar</button></div></div>
+                <div class="card"><div class="thumb"><span class="sale-tag">−3%</span><div class="obj">Librero Palermo</div></div>
+                  <div class="cbody"><div class="cname">Mubson Librero con 6 Repisas Palermo</div><div class="crate"><span class="stars" style="font-size:9px">★★★★★</span> 4.8 (35)</div>
+                  <div class="cprice"><span class="n">$3,490</span><span class="o">$3,599</span></div><button class="add">＋ Agregar</button></div></div>
+              </div>
+            </div>
+
+            <!-- spaces scroller -->
+            <div class="sec cream">
+              <div class="sec-h">Compra por espacio<span class="small">El 20% del tráfico ya entra buscando un espacio. Llévalo directo.</span></div>
+              <div class="spaces">
+                <div class="space"><b>Sala</b><span class="go">Ver →</span></div>
+                <div class="space"><b>Recámara</b><span class="go">Ver →</span></div>
+                <div class="space"><b>Estudio / Oficina</b><span class="go">Ver →</span></div>
+                <div class="space"><b>Comedor</b><span class="go">Ver →</span></div>
+              </div>
+            </div>
+
+            <!-- reviews -->
+            <div class="sec">
+              <div class="rev-head"><span class="big">4.8</span><span class="stars">★★★★★</span><span>+1,300 reseñas</span></div>
+              <div class="rev-grid">
+                <div class="rev"><div class="who">Daniela R.</div><div class="st">★★★★★</div><p>La silla Astra llegó en 4 días y el armado fue facilísimo con el manual. Súper cómoda para home office.</p></div>
+                <div class="rev"><div class="who">Carlos M.</div><div class="st">★★★★★</div><p>El sillón Silet se ve mucho mejor en persona. Piel genuina real, valió cada peso.</p></div>
+              </div>
+              <button class="more">Ver más reseñas</button>
+            </div>
+
+            <footer class="foot">mubson · muebles que transforman tu espacio</footer>
+
+            <!-- sticky cta -->
+            <div class="sticky">
+              <button class="scta">Ver los más vendidos →</button>
+              <div class="scart"><svg class="icn" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.3"/><circle cx="18" cy="20" r="1.3"/><path d="M2 3h3l2.4 12.5a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.2L22 7H6"/></svg></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEGEND -->
+    <div class="legend">
+      <h4>Las 6 mejoras del mockup</h4>
+      <div class="lead">Cada cambio ataca las dos fugas del embudo: la entrada (sesión→carrito 1.98%) y el cierre. Los números coinciden con los pines del prototipo.</div>
+
+      <div class="chg"><div class="num">1</div><div class="ct"><b>Hero con CTA y una sola oferta</b><p>Botón primario claro (“Ver el Sillón Silet”) más un secundario a “más vendidos”. Un único cupón visible (SILET4K), sin floats compitiendo. El camino al carrito arranca en el primer toque.</p></div></div>
+      <div class="chg"><div class="num">2</div><div class="ct"><b>“Empieza aquí” que guía</b><p>Cuatro entradas (Más vendidos · Por espacio · Sets · Premium) en vez de tirar todo el catálogo en scroll. Menos parálisis para el tráfico frío de Meta.</p></div></div>
+      <div class="chg"><div class="num">3</div><div class="ct"><b>Pantalla limpia, una sola promo</b><p>Una barra superior con un mensaje (reseñas + envío + MSI). Se quitan los pop-ups encimados (“15% OFF” flotante, “15PRIMERA”, WhatsApp sobre el hero) que saturaban el móvil.</p></div></div>
+      <div class="chg"><div class="num">4</div><div class="ct"><b>Sets por espacio para subir el AOV</b><p>Un set propuesto (Estudio: Astra + Librero + Credenza) eleva el ticket promedio ($3,613) sin necesitar más tráfico. Es la palanca de ingreso más barata.</p></div></div>
+      <div class="chg"><div class="num">5</div><div class="ct"><b>“Agregar” en cada tarjeta + productos ancla</b><p>Se mantiene el quick-add (Mubson ya lo tiene) y se priorizan los anclas: Astra y Silet arriba. La Credenza Gleza, #1 en visitas, queda visible con su precio claro.</p></div></div>
+      <div class="chg"><div class="num">6</div><div class="ct"><b>Confianza arriba</b><p>Envío gratis, 3 MSI, manual en español y +20,000 clientes justo bajo el hero. Las señales que cierran la compra dejan de estar escondidas al final.</p></div></div>
+
+      <div class="hint">Bonus: <b>barra inferior fija</b> con “Ver los más vendidos” siempre visible al hacer scroll — el CTA nunca se pierde en móvil, donde está el 91% del tráfico.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const tg=document.getElementById('tg'), mb=document.getElementById('mb');
+  tg.addEventListener('click',()=>{const on=mb.classList.toggle('show-anno');tg.classList.toggle('on',on);});
+</script>
+</body>
+</html>
